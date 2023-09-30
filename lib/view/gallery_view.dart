@@ -11,9 +11,11 @@ class GalleryView extends StatefulWidget {
     Key? key,
     this.text,
     required this.onImage,
+    required this.point,
   }) : super(key: key);
 
   final String? text;
+  final int point;
   final Function(InputImage inputImage) onImage;
 
   @override
@@ -52,19 +54,24 @@ class _GalleryViewState extends State<GalleryView> {
                 size: 200,
               ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 50),
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
             child: Text('From Gallery'),
             onPressed: () => _getImage(ImageSource.gallery),
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
             child: Text('Take a picture'),
             onPressed: () => _getImage(ImageSource.camera),
           ),
         ),
+        Center(child: Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+          child: Text("Puan: ${widget.point}", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),),),),
+
         if (image != null)
           Padding(
             padding: const EdgeInsets.all(16.0),

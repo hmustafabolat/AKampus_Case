@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeViewState extends State<Home> {
-  List allowedList = ['pantene', 'gilete'];
+  List allowedList = ['pantene', 'gilette'];
   var _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
   bool _isBusy = false;
   String? _text;
@@ -28,16 +28,13 @@ class _HomeViewState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: Text('Text Detector'),
-        actions: [
-          Center(
-            child: Text("Puan : ${point}"),
-          ),
-        ],
       ),
       body: GalleryView(
         text: _text,
         onImage: _processImage,
+        point: point,
       ),
     );
   }
