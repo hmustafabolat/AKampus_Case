@@ -11,12 +11,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeViewState extends State<Home> {
-  List allowedList = ['pantene', 'gilette'];
-  var _textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
-  bool _isBusy = false;
-  String? _text;
-
-  int point = 0;
+  List allowedList = [
+    'pantene',
+    'gilette',
+    'orkid'
+  ]; //Aranmasını istediğim kelimeleri bir listede tutuyorum.
+  var _textRecognizer = TextRecognizer(
+      script: TextRecognitionScript
+          .latin); //Google ML Kit Text Recognition'ı kullanmak için bir nesne üretiyorum.
+  bool _isBusy =
+      false; //İşlemlerin devam edip etmediğini kontrol eden değişken.
+  String? _text; //Tanımlanan metni tutan değişken.
+  int point = 0; //Alınan puanı tutan değişken.
 
   @override
   void dispose() async {
@@ -32,28 +38,34 @@ class _HomeViewState extends State<Home> {
         title: Text('Text Detector'),
       ),
       body: GalleryView(
-        text: _text,
-        onImage: _processImage,
-        point: point,
+        text: _text, //Tanımlanan metin
+        onImage: _processImage, //Resim işleme özelliği
+        point: point, //Puanı aktardık
+        resetImage: _restartImage, //Resmin sıfırlanması için çağırılan özellik
       ),
     );
   }
 
   Future<void> _processImage(InputImage inputImage) async {
-    if (_isBusy) return;
+    if (_isBusy)
+      return; //İşlemin meşguliyet durumuna göre diğer işlemi bekliyoruz.
     _isBusy = true;
 
     setState(() {
-      _text = '';
+      _text = ''; //Tanımlanan metni temizler.
     });
 
-    final recognizedText = await _textRecognizer.processImage(inputImage);
-    bool findWord = false;
+    final recognizedText = await _textRecognizer
+        .processImage(inputImage); //Resimdeki metni tanımlayan işlem.
+    bool findWord =
+        false; //Dizide tanımladığımız kelimelerin bulunup bulunmadığını kontrol eden değişken.
     List textList = recognizedText.text
         .split(RegExp(r'\s+|\n+'))
         .map((e) => e.toLowerCase())
         .toList();
+    //Tanımlanan metni küçük harflere ayırıp liste yapar.
 
+    //Tanımlanan metin dizi içerisinde istenen kelimeleri bulunduruyorsa eğer kullanıcı puanına 10 ekle ve kelime bulundu diye işaretle.
     allowedList.forEach((element) {
       if (textList.contains(element)) {
         point += 10;
@@ -62,11 +74,13 @@ class _HomeViewState extends State<Home> {
     });
 
     if (findWord) {
-      _text = 'Recognized text:\n\n${recognizedText.text}';
+      _text =
+          'Recognized text:\n\n${recognizedText.text}'; //Tanınan metni sakla
     } else {
-      _showDialog(context);
+      _showDialog(context); //Kelime bulunmazsa eğer bildirim penceresi aç.
     }
 
+    //Bütün işlemi serbest bırakan yapı.
     _isBusy = false;
     if (mounted) {
       setState(() {});
@@ -91,5 +105,13 @@ class _HomeViewState extends State<Home> {
         );
       },
     );
+  }
+
+  //Resmi, puanı ve çıktıyı sıfırlayan fonksiyon.
+  void _restartImage() {
+    setState(() {
+      point = 0;
+      _text = null;
+    });
   }
 }

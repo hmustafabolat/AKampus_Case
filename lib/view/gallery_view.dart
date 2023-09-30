@@ -10,27 +10,35 @@ class GalleryView extends StatefulWidget {
   GalleryView({
     Key? key,
     this.text,
-    required this.onImage,
+    required this.onImage, //Resim işleme işlemini gerçekleştirecek değişken.
     required this.point,
+    required this.resetImage, //Resmi sıfırlamak için oluşturulan değişken.
   }) : super(key: key);
 
   final String? text;
   final int point;
   final Function(InputImage inputImage) onImage;
+  final Function() resetImage;
 
   @override
   State<GalleryView> createState() => _GalleryViewState();
 }
 
 class _GalleryViewState extends State<GalleryView> {
-  File? image;
-  ImagePicker? imagePicker;
+  File? image; //Seçilen veya çekilen resmi saklamak için oluşturduğum değişken.
+  ImagePicker? imagePicker; //Resim seçme ve çekme işlemleri için bir nesne.
 
   @override
   void initState() {
     super.initState();
 
     imagePicker = ImagePicker();
+  }
+
+  void _restartImage() {
+    setState(() {
+      image = null;
+    });
   }
 
   @override
@@ -45,7 +53,7 @@ class _GalleryViewState extends State<GalleryView> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: <Widget>[
-                    Image.file(image!),
+                    Image.file(image!), //Seçilen resmi görüntüleme.
                   ],
                 ),
               )
@@ -58,7 +66,7 @@ class _GalleryViewState extends State<GalleryView> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
             child: Text('From Gallery'),
-            onPressed: () => _getImage(ImageSource.gallery),
+            onPressed: () => _getImage(ImageSource.gallery), //Galeriden resim seçmek için çağırılan işlev.
           ),
         ),
         Padding(
@@ -66,16 +74,37 @@ class _GalleryViewState extends State<GalleryView> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
             child: Text('Take a picture'),
-            onPressed: () => _getImage(ImageSource.camera),
+            onPressed: () => _getImage(ImageSource.camera), //Resim çekmek için çağırılan işlev.
           ),
         ),
-        Center(child: Padding(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-          child: Text("Puan: ${widget.point}", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),),),),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+            child: Text(
+              "Puan: ${widget.point}",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+          child: ElevatedButton.icon(
+            onPressed: () {
+              setState(() {
+                image = null; // Resmi sıfırla
+              });
+              widget.resetImage(); // Reset işlevini çağır
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+            icon: Icon(Icons.refresh), // İkon eklemek için icon parametresi
+            label: Text('Sıfırla'), // Metin eklemek için label parametresi
+          ),
+        ),
 
         if (image != null)
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text('${widget.text ?? ''}'),
+            child: Text('${widget.text ?? ''}'), //Tanımlanan metni görüntüleme.
           ),
       ],
     );
@@ -85,17 +114,17 @@ class _GalleryViewState extends State<GalleryView> {
     setState(() {
       image = null;
     });
-    final pickedFile = await imagePicker?.pickImage(source: source);
+    final pickedFile = await imagePicker?.pickImage(source: source); //Resmi seçme veya çekme işlemi.
     if (pickedFile != null) {
-      _processFile(pickedFile.path);
+      _processFile(pickedFile.path); //Seçilen veya çekilen resmi işleme işlemi.
     }
   }
 
   Future _processFile(String path) async {
     setState(() {
-      image = File(path);
+      image = File(path); //Seçilen veya çekilen resmi saklama.
     });
     final inputImage = InputImage.fromFilePath(path);
-    widget.onImage(inputImage);
+    widget.onImage(inputImage); //Resim işleme işlemini çağırma.
   }
 }

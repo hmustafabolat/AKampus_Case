@@ -1,17 +1,55 @@
 # akampus_case
 
-A new Flutter project.
+# home.dart
 
-## Getting Started
+# 1-) _HomeViewState Sınıfı:
 
-This project is a starting point for a Flutter application.
+# --> allowedList: Tanınan metinde aranacak olan kelimelerin listesi.
+# --> _textRecognizer: Google ML Kit Text Recognition'ı kullanmak için bir nesne.
+# --> _isBusy: İşlemin devam edip etmediğini izlemek için bir bayrak.
+# --> _text: Tanınan metni saklamak için bir değişken.
+# --> point: Kullanıcının puanını saklamak için bir değişken.
 
-A few resources to get you started if this is your first Flutter project:
+# 2-) dispose Metodu:
+# --> _textRecognizer nesnesini kapatır.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# 3-) build Metodu:
+# --> Scaffold widget'ı, uygulamanın temel yapısını oluşturur. AppBar ve GalleryView bileşenlerini içerir.
+# --> GalleryView bileşeni, resim seçme veya çekme işlemlerini ve bu resimlerdeki metni tanıma işlemini gerçekleştirir.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# AKapmus_Case
+# 4-) _processImage Metodu:
+# --> Resmi işleme işlemini gerçekleştirir. Bu işlem, metni tanıma ve belirli kelimelerin kontrolünü içerir.
+# --> Tanınan metin içinde belirli kelimeler bulunursa, puanı artırır veya uyarı gösterir.
+
+# 5-) _showDialog Metodu:
+# --> Uyarı iletişim kutusunu görüntüler.
+
+# 6-) _restartImage Metodu:
+# Resmi sıfırlar ve metni temizler.
+
+# gallery_view.dart
+
+# 1-) GalleryView Sınıfı:
+# --> GalleryView bileşeni, resim gösterme işlemini ve resim seçme veya çekme işlemlerini içerir.
+
+# 2-) _GalleryViewState Sınıfı:
+# --> image: Seçilen veya çekilen resmi saklamak için bir değişken.
+# --> imagePicker: Resim seçme ve çekme işlemleri için bir nesne.
+
+# 3-) initState Metodu:
+# --> imagePicker nesnesini başlatır.
+
+# 4-) _restartImage Metodu:
+# --> Resmi sıfırlar.
+
+# 5-) build Metodu:
+# --> Bir ListView içinde, seçilen veya çekilen resmi gösteren bir Image veya Icon bileşeni bulunur.
+# --> İki adet ElevatedButton (Galeriden Resim Seç ve Kameradan Fotoğraf Çek) bulunur.
+# --> Resim gösterme, puanı gösterme ve resmi sıfırlama işlemi gerçekleştiren düğmeler bulunur.
+# --> Resmi sıfırlama işlemi, widget.resetImage() işlevi aracılığıyla home.dart dosyasındaki _restartImage işlevine iletilir.
+
+# 6-) _getImage Metodu:
+# --> Resim seçme veya çekme işlemini gerçekleştirir.
+
+# 7-) _processFile Metodu:
+# --> Seçilen veya çekilen resmi işleme işlemini gerçekleştirir.
