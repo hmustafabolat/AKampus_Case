@@ -97,7 +97,7 @@ class _GalleryViewState extends State<GalleryView> {
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
             icon: Icon(Icons.refresh), // İkon eklemek için icon parametresi
-            label: Text('Sıfırla'), // Metin eklemek için label parametresi
+            label: Text('Reset'), // Metin eklemek için label parametresi
           ),
         ),
 
