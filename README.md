@@ -1,6 +1,8 @@
 # akampus_case
 
 # home.dart
+![AKampus_Case_SS1](https://github.com/hmustafabolat/AKampus_Case/assets/52278526/12d2dfda-cf95-4875-a58c-d446e969241c)
+![AKampus_case_SS2](https://github.com/hmustafabolat/AKampus_Case/assets/52278526/5d717f8d-35ae-49ff-97da-6eec7f04e2f6)
 
 # 1-) _HomeViewState Sınıfı:
 
