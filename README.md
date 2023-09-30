@@ -1,8 +1,8 @@
 # akampus_case
 Repo AKampüs'ün bana verdiği case'i içermektedir. Google OCR SDK kullanarak görüntü üzerinde aranan kelimelerin (Gilette, pantene, orkid) bulunması durumunda kullanıcıya +10 puan vermesini sağlanıyor. Uygulama içerisinde galeriden resim seçme butonu, kameraya erişme butonu ve resimleri, skoru sıfırlayan buton bulunmaktadır. Bu uygulamayı yazarken kullandığım bazı paketler bulunmaktadır bunlar; 
-image_picker: ^1.0.1
-camera: ^0.10.5+2
-path: ^1.8.3
+image_picker: ^1.0.1 \n
+camera: ^0.10.5+2 \n
+path: ^1.8.3 \n
 path_provider: ^2.0.15
 google_mlkit_text_recognition: ^0.10.0
 
